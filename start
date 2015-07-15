@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+: "${muninHosts:=localhost}"
+: "${muninPort:=4949}"
+: "${listeningBaseAddress:=800}"
+: "${muninScrapeInterval:=60}"
+
+hosts=( ${muninHosts} )
+listeningPort=0
+
+for host in "${hosts[@]}"
+do
+  echo "Starting exporter from host: ${host}:${muninPort} with listeningAddress: ${listeningBaseAddress}${listeningPort} on muninScrapeInterval ${muninScrapeInterval}"
+  nohup /bin/munin_exporter -listeningAddress=${listeningBaseAddress}${listeningPort} -muninAddress=${host}:${muninPort} -muninScrapeInterval=${muninScrapeInterval} > ${host}.out &
+  (( listeningPort++ ))
+done
+
+# All logfiles to follow and make container running
+tail -qF *.out
