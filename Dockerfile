@@ -7,5 +7,6 @@ COPY . $APPPATH
 COPY start /bin/start
 RUN cd $APPPATH && go get -d && go build -o /bin/munin_exporter \
     && mv $APPPATH/start /bin/start && rm -rf $GOPATH
+WORKDIR /bin
 
 CMD ["bash", "/bin/start"]
