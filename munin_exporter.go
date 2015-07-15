@@ -198,7 +198,7 @@ func registerMetrics() (err error) {
                                 	},
                                 	[]string{"hostname","graphname","muninlabel"},
                         	)
-				log.Printf("Registered counter %s: %s", metricName, desc)
+				//log.Printf("Registered counter %s: %s", metricName, desc)
                         	counterPerMetric[metricName] = gv
                         	prometheus.Register(gv)
 
@@ -211,7 +211,7 @@ func registerMetrics() (err error) {
                 	                },
                         	        []string{"hostname","graphname","muninlabel"},
                         	)
-				log.Printf("Registered gauge %s: %s", metricName, desc)
+				//log.Printf("Registered gauge %s: %s", metricName, desc)
         	                gaugePerMetric[metricName] = gv
                 	        prometheus.Register(gv)
 			}
@@ -238,7 +238,7 @@ func fetchMetrics() (err error) {
 				return err
 			}
 			if len(line) == 1 && line[0] == '.' {
-				log.Printf("End of list")
+				//log.Printf("End of list")
 				break
 			}
 
@@ -254,7 +254,7 @@ func fetchMetrics() (err error) {
 				continue
 			}
 			name := strings.Replace(graph + "_" + key, "-","_",-1)
-			log.Printf("%s: %f\n", name, value)
+			//log.Printf("%s: %f\n", name, value)
 			_, isGauge := gaugePerMetric[name]
 			if isGauge {
 	                        gaugePerMetric[name].WithLabelValues(hostname, graph, key).Set(value)
