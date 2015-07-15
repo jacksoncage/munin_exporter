@@ -4,9 +4,8 @@ EXPOSE     8000-8100
 
 ENV APPPATH $GOPATH/src/github.com/jacksoncage/munin_exporter
 COPY . $APPPATH
-COPY start /bin/start
 RUN cd $APPPATH && go get -d && go build -o /bin/munin_exporter \
-    && mv $APPPATH/start /bin/start && rm -rf $GOPATH
-WORKDIR /bin
+    && mv $APPPATH/start /opt/munin_exporter && rm -rf $GOPATH
+WORKDIR /opt
 
-CMD ["bash", "/bin/start"]
+CMD ["bash", "/opt/munin_exporter"]
