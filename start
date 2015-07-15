@@ -2,11 +2,11 @@
 
 : "${muninHosts:=localhost}"
 : "${muninPort:=4949}"
-: "${listeningBaseAddress:=800}"
+: "${listeningBaseAddress:=80}"
 : "${muninScrapeInterval:=60}"
 
 hosts=( ${muninHosts} )
-listeningPort=0
+listeningPort=10
 
 for host in "${hosts[@]}"
 do

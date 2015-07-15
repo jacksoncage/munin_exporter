@@ -1,6 +1,6 @@
 FROM       golang
 MAINTAINER Love Nyberg <love.nyberg@lovemusic.se> (@jacksoncage)
-EXPOSE     8000-8100
+EXPOSE     8010-8100
 
 ENV APPPATH $GOPATH/src/github.com/jacksoncage/munin_exporter
 COPY . $APPPATH
