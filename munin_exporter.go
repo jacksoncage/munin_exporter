@@ -42,7 +42,7 @@ func init() {
 
 	err = connect()
 	if err != nil {
-		log.Fatalf("Could not connect to %s: %s", *muninAddress, err)
+		//log.Fatalf("Could not connect to %s: %s", *muninAddress, err)
 	}
 }
 
@@ -52,12 +52,12 @@ func serveStatus() {
 }
 
 func connect() (err error) {
-	log.Printf("Connecting...")
+	//log.Printf("Connecting...")
 	globalConn, err = net.Dial(proto, *muninAddress)
 	if err != nil {
 		return
 	}
-	log.Printf("connected!")
+	//log.Printf("connected!")
 
 	reader := bufio.NewReader(globalConn)
 	head, err := reader.ReadString('\n')
@@ -70,7 +70,7 @@ func connect() (err error) {
 		return fmt.Errorf("Unexpected line: %s", head)
 	}
 	hostname = matches[1]
-	log.Printf("Found hostname: %s", hostname)
+	//log.Printf("Found hostname: %s", hostname)
 	return
 }
 
@@ -244,13 +244,13 @@ func fetchMetrics() (err error) {
 
 			parts := strings.Fields(line)
 			if len(parts) != 2 {
-				log.Printf("unexpected line: %s", line)
+				//log.Printf("unexpected line: %s", line)
 				continue
 			}
 			key, valueString := strings.Split(parts[0], ".")[0], parts[1]
 			value, err := strconv.ParseFloat(valueString, 64)
 			if err != nil {
-				log.Printf("Couldn't parse value in line %s, malformed?", line)
+				//log.Printf("Couldn't parse value in line %s, malformed?", line)
 				continue
 			}
 			name := strings.Replace(graph + "_" + key, "-","_",-1)
@@ -277,7 +277,7 @@ func main() {
 
 	func() {
 		for {
-			log.Printf("Scraping")
+			log.Printf("Scraping: %s", hostname)
 			err := fetchMetrics()
 			if err != nil {
 				log.Printf("Error occured when trying to fetch metrics: %s", err)
